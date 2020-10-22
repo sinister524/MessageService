@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <title>Информация</title>
+</head>
+<body>
+    <header th:insert="fragments/header :: header"></header>
+
+    <div class="container">
+        <h1>Список REST Запросов</h1>
+        <p><a href="/rest/messages"/> - GET-метод, получить список всех заявок, роли аккаунта "USER", "OPERATOR";</p>
+        <p><a href="/rest/messages/draft"/> - POST-метод, сохранить черновик заявки, роль аккаунта "USER";</p>
+        <p><a href="/rest/messages/*/edit"/> - PUT-метод, редактировать черновик заявки, роль аккаунта "USER";</p>
+        <p><a href="/rest/messages/send"/> - POST-метод, отправить заявку, роль аккаунта "USER";</p>
+        <p><a href="/rest/messages/*/send"/> - PUT-метод, отправить черновик заявки, роль аккаунта "USER";</p>
+        <p><a href="/rest/messages/*/accept"/> - PUT-метод, принять заявку, роль аккаунта "OPERATOR";</p>
+        <p><a href="/rest/messages/*/reject"/> - PUT-метод, отклонить заявку, роль аккаунта "OPERATOR";</p>
+        <p></p>
+        <p><a href="/rest/admin"/> - GET-метод, получить список всех аккаунтов, роль аккаунта "ADMIN";</p>
+        <p><a href="/rest/admin/*/appointOperator"/> - PUT-метод, назначить пользователя оператором, роль аккаунта "ADMIN";</p>
+        <p><a href="/rest/admin/*/removeOperator"/> - PUT-метод, снять оператора с должности, роль аккаунта "ADMIN";</p>
+    </div>
+</body>
+</html>

@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <div th:fragment = "header">
+    <div th:fragment = "header" class="container">
         <div sec:authorize="isAuthenticated()">
             <span>
                 Привет, <span sec:authentication="name"></span>!

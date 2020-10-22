@@ -11,6 +11,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -53,6 +54,7 @@ public class MessageRestController {
 
         if (message.getStatus().equals(Status.DRAFT)){
             message.setText(text);
+            message.setDate(new Date());
         }
 
         return messageRepository.save(message);
@@ -64,6 +66,7 @@ public class MessageRestController {
 
         if (message.getStatus().equals(Status.DRAFT)){
             message.setStatus(Status.SENT);
+            message.setDate(new Date());
         }
 
         return messageRepository.save(message);
