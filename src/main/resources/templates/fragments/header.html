@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div th:fragment = "header">
+        <div sec:authorize="isAuthenticated()">
+            <span>
+                Привет, <span sec:authentication="name"></span>!
+                <a href="/logout"> Выйти</a>
+            </span>
+        </div>
+        <div sec:authorize="!isAuthenticated()">
+            <span>
+                Привет, Гость!<a href="/login"> Войти</a>
+            </span>
+            <a href="/registration">Регистрация</a>
+        </div>
+    </div>
+</body>
+</html>

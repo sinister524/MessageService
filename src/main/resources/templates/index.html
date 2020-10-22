@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title>Главная</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+
+</head>
+<body>
+
+<header th:insert="fragments/header :: header"></header>
+
+<div class="container">
+
+    <div>
+        <h1>Сервис заявок</h1>
+        <div sec:authorize="isAuthenticated()"><h2 sec:authorize="!hasRole('ROLE_ADMIN')"><a href="/messages">Заявки</a></h2></div>
+        <h2 sec:authorize="hasRole('ROLE_ADMIN')"><a href="/admin">Список пользователей</a></h2>
+        <h2><a href="/info">Информация</a></h2>
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+    <title>Заявки</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <header th:insert="fragments/header :: header"></header>
+
+    <div class="container">
+        <div sec:authorize="hasRole('ROLE_USER')">
+            <h2>Добавить заявку</h2>
+            <form action="/messages" method="post">
+                <textarea name="text" placeholder="Текст заявки" cols="50" rows="10" required></textarea>
+                <button type="submit" name="status" value="SENT">Отправить</button>
+                <button type="submit" name="status" value="DRAFT">Сохранить в черновиках</button>
+            </form>
+        </div>
+        <h2>Список заявок</h2>
+        <div th:each="message : ${messages}">
+            <p>
+                <span th:text="${message.date}">Date</span>
+                <span th:text="${message.account.name}">Name</span>
+                <span th:text="${message.getShortText()}">Text</span>
+                <span th:text="${message.status}">Status</span>
+                <a th:href="'messages/' + ${message.id}">Подробнее</a>
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <title>Панель администратора</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <header th:insert="fragments/header :: header"></header>
+
+    <div class="container">
+        <h1>Список пользователей</h1>
+
+        <div th:each="account : ${accounts}">
+            <div class="row">
+                <div class="col-md-3" th:text="${account.id}">id</div>
+                <div class="col-md-3" th:text="${account.name}">Name</div>
+                <div class="col-md-3" th:text="${account.roles}">roles</div>
+                <div class="col-md-3">
+                    <form th:action="'admin/' + ${account.id} + '/edit'" method="post">
+                        <button th:if="${account.isRole('ROLE_USER')}" type="submit" name="role" value="ROLE_OPERATOR">Назначить оператором</button>
+                        <button th:if="${account.isRole('ROLE_OPERATOR')}" type="submit" name="role" value="ROLE_USER">Назначить пользователем</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

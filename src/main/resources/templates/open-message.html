@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${message.getShortText()}"></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <header th:insert="fragments/header :: header"></header>
+
+    <div class="container">
+        <h1>Заявка от: <strong><span th:text="${message.account.name}"/></strong> </h1>
+        <p th:text="${message.date}">Date</p>
+        <p><strong>Статус: </strong><span th:text="${message.status}"/></p>
+        <p th:text="${message.text}"/>
+
+        <div th:if="${message.status.name() == 'DRAFT'}">
+            <div sec:authorize="hasRole('ROLE_USER')">
+                <h3>Редактировать заявку</h3>
+                <form th:action="${message.id} + '/edit'" method="post">
+                    <textarea name="text" placeholder="Текст заявки" cols="50" rows="10" required th:text="${message.text}"></textarea>
+                    <button type="submit" name="status" value="SENT">Отправить</button>
+                    <button type="submit" name="status" value="DRAFT">Сохранить в черновиках</button>
+                </form>
+            </div>
+        </div>
+        <div th:if="${message.status.name() == 'SENT'}">
+            <div sec:authorize="hasRole('ROLE_OPERATOR')">
+                <h3>Обаботать заявку</h3>
+                <form th:action="${message.id} + '/process'" method="post">
+                    <button type="submit" name="status" value="ACCEPTED">Принять</button>
+                    <button type="submit" name="status" value="REJECTED">Отклонить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
